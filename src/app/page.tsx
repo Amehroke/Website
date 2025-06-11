@@ -1,103 +1,280 @@
-import Image from "next/image";
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { AnimatedSection } from "@/components/ui/animated-section";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Github, Linkedin, Mail, Youtube, ArrowRight, Code2, Database, Cloud } from "lucide-react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { FluidBackground } from "@/components/ui/fluid-background";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="relative min-h-screen">
+      <FluidBackground />
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        {/* Background Effects */}
+        <div className="fixed inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-background/50 to-background/80 animate-gradient" />
+          <div className="absolute inset-0 bg-grid-white/[0.03] bg-[size:50px_50px]" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        {/* Hero Section */}
+        <div className="section-padding relative">
+          <div className="container-padding mx-auto max-w-7xl">
+            <div className="relative space-y-8 py-16">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="space-y-6"
+              >
+                <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+                  Arashdeep Mehroke
+                </h1>
+                <h2 className="text-2xl md:text-3xl text-muted-foreground">
+                  Machine Learning Engineer
+                </h2>
+                <p className="text-lg md:text-xl max-w-2xl mx-auto text-muted-foreground">
+                  Building intelligent systems that solve real-world problems through machine learning and software engineering.
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <Button size="lg" asChild className="group">
+                    <Link href="#projects">
+                      View My Work
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </Button>
+                  <Button size="lg" variant="outline" asChild>
+                    <Link href="#contact">Get in Touch</Link>
+                  </Button>
+                </div>
+              </motion.div>
+              <div className="flex justify-center gap-8 pt-8">
+                <div className="flex flex-col items-center gap-2">
+                  <Code2 className="h-8 w-8 text-primary" />
+                  <span className="text-sm text-muted-foreground">Clean Code</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <Database className="h-8 w-8 text-primary" />
+                  <span className="text-sm text-muted-foreground">ML Systems</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <Cloud className="h-8 w-8 text-primary" />
+                  <span className="text-sm text-muted-foreground">Cloud Native</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* About Section */}
+        <AnimatedSection id="about" className="relative">
+          <div className="absolute inset-0 bg-muted/50" />
+          <div className="relative space-y-8 py-16">
+            <h2 className="text-3xl font-bold text-center">About Me</h2>
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="space-y-4">
+                <p className="text-lg text-muted-foreground">
+                  I&apos;m a Machine Learning Engineer passionate about developing scalable AI solutions.
+                  Currently focused on building and deploying machine learning models in production environments.
+                </p>
+                <p className="text-lg text-muted-foreground">
+                  With expertise in Python, TensorFlow, and cloud technologies, I create robust and efficient
+                  machine learning systems that drive real business value.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-4 justify-center">
+                {["Python", "TensorFlow", "AWS", "Unity", "Kubernetes", "Next.js"].map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-4 py-2 bg-background rounded-full text-sm font-medium border border-border hover:border-primary transition-colors"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </AnimatedSection>
+
+        {/* Projects Section */}
+        <AnimatedSection id="projects" className="relative py-16">
+          <h2 className="text-3xl font-bold text-center mb-12">Featured Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: "ML Pipeline Automation",
+                description: "Automated machine learning pipeline for real-time data processing",
+                tech: "Python, TensorFlow, AWS",
+                github: "#",
+                demo: "#"
+              },
+              {
+                title: "Computer Vision System",
+                description: "Real-time object detection system for industrial applications",
+                tech: "Python, OpenCV, PyTorch",
+                github: "#",
+                demo: "#"
+              },
+              {
+                title: "Cloud ML Platform",
+                description: "Scalable machine learning platform for enterprise use",
+                tech: "Kubernetes, TensorFlow, GCP",
+                github: "#",
+                demo: "#"
+              }
+            ].map((project, index) => (
+              <Card key={index} className="group hover:border-primary transition-colors">
+                <CardHeader>
+                  <CardTitle className="group-hover:text-primary transition-colors">
+                    {project.title}
+                  </CardTitle>
+                  <CardDescription>{project.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    Tech Stack: {project.tech}
+                  </p>
+                </CardContent>
+                <CardFooter className="flex gap-4">
+                  <Button variant="outline" size="sm" asChild className="group">
+                    <Link href={project.github} target="_blank">
+                      <Github className="mr-2 h-4 w-4" />
+                      GitHub
+                    </Link>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild className="group">
+                    <Link href={project.demo} target="_blank">
+                      <ArrowRight className="mr-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      Demo
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </AnimatedSection>
+
+        {/* Experience Section */}
+        <AnimatedSection id="experience" className="relative">
+          <div className="absolute inset-0 bg-muted/50" />
+          <div className="relative space-y-12 max-w-3xl mx-auto py-16">
+            <h2 className="text-3xl font-bold text-center">Professional Experience</h2>
+            {[
+              {
+                title: "Senior ML Engineer",
+                company: "Tech Corp",
+                period: "2020 - Present",
+                achievements: [
+                  "Led development of ML infrastructure serving 1M+ users",
+                  "Implemented automated ML pipelines reducing deployment time by 60%",
+                  "Mentored junior engineers and conducted technical interviews"
+                ]
+              },
+              {
+                title: "ML Engineer",
+                company: "AI Solutions",
+                period: "2018 - 2020",
+                achievements: [
+                  "Developed computer vision models for industrial automation",
+                  "Optimized model performance reducing inference time by 40%",
+                  "Collaborated with cross-functional teams to deliver ML solutions"
+                ]
+              }
+            ].map((exp, index) => (
+              <div key={index} className="space-y-4 p-6 bg-background rounded-lg border border-border hover:border-primary transition-colors">
+                <div className="space-y-1">
+                  <h3 className="text-xl font-semibold">{exp.title}</h3>
+                  <p className="text-muted-foreground">{exp.company} • {exp.period}</p>
+                </div>
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                  {exp.achievements.map((achievement, i) => (
+                    <li key={i}>{achievement}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </AnimatedSection>
+
+        {/* Contact Section */}
+        <AnimatedSection id="contact" className="relative py-16">
+          <div className="max-w-2xl mx-auto space-y-8">
+            <h2 className="text-3xl font-bold text-center">Get in Touch</h2>
+            <form className="space-y-6 p-6 bg-muted/50 rounded-lg border border-border">
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm font-medium">
+                  Name
+                </label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Your name"
+                  className="bg-background"
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-medium">
+                  Email
+                </label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="your.email@example.com"
+                  className="bg-background"
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="message" className="text-sm font-medium">
+                  Message
+                </label>
+                <Textarea
+                  id="message"
+                  placeholder="Your message"
+                  className="min-h-[100px] bg-background"
+                />
+              </div>
+              <Button type="submit" className="w-full group">
+                Send Message
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </form>
+            <div className="flex justify-center gap-4">
+              <Button variant="outline" size="icon" asChild className="hover:bg-primary hover:text-primary-foreground transition-colors">
+                <Link href="#" target="_blank">
+                  <Github className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Button variant="outline" size="icon" asChild className="hover:bg-primary hover:text-primary-foreground transition-colors">
+                <Link href="#" target="_blank">
+                  <Linkedin className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Button variant="outline" size="icon" asChild className="hover:bg-primary hover:text-primary-foreground transition-colors">
+                <Link href="#" target="_blank">
+                  <Youtube className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Button variant="outline" size="icon" asChild className="hover:bg-primary hover:text-primary-foreground transition-colors">
+                <Link href="#" target="_blank">
+                  <Mail className="h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+            <div className="text-center">
+              <Button variant="link" asChild className="group">
+                <Link href="/resume.pdf" target="_blank">
+                  Download Resume
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </AnimatedSection>
+      </div>
+    </main>
   );
 }
