@@ -5,12 +5,106 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { AnimatedSection } from "@/components/ui/animated-section";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Github, Linkedin, Mail, Youtube, ArrowRight, Code2, Database, Cloud } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowRight, Code2, Database, Cloud } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FluidBackground } from "@/components/ui/fluid-background";
+import { useState, useEffect } from "react";
+import emailjs from '@emailjs/browser';
 
 export default function Home() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [formStatus, setFormStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    // Initialize EmailJS
+    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFormStatus({ type: null, message: "" });
+
+    try {
+      // Send form submission to your email
+      const formResponse = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_email: "arashdeepmehrokework@gmail.com",
+        }
+      );
+
+      if (formResponse.status === 200) {
+        try {
+          // Send auto-reply to the sender
+          const autoReplyResponse = await emailjs.send(
+            process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+            process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID!,
+            {
+              to_name: formData.name,
+              to_email: formData.email,
+              from_name: "Arashdeep Mehroke",
+              reply_to: "arashdeepmehrokework@gmail.com",
+              message: formData.message,
+            }
+          );
+
+          if (autoReplyResponse.status === 200) {
+            setFormStatus({
+              type: "success",
+              message: "Message sent successfully! You will receive a confirmation email shortly.",
+            });
+            setFormData({ name: "", email: "", message: "" });
+          } else {
+            console.error("Auto-reply failed:", autoReplyResponse);
+            setFormStatus({
+              type: "success",
+              message: "Message sent successfully! However, there was an issue sending the confirmation email.",
+            });
+          }
+        } catch (autoReplyError) {
+          console.error("Auto-reply error:", autoReplyError);
+          setFormStatus({
+            type: "success",
+            message: "Message sent successfully! However, there was an issue sending the confirmation email.",
+          });
+        }
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setFormStatus({
+        type: "error",
+        message: "Failed to send message. Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <main className="relative min-h-screen">
       <FluidBackground />
@@ -35,10 +129,10 @@ export default function Home() {
                   Arashdeep Mehroke
                 </h1>
                 <h2 className="text-2xl md:text-3xl text-muted-foreground">
-                  Machine Learning Engineer
+                  Data Scientist & ML Engineer
                 </h2>
                 <p className="text-lg md:text-xl max-w-2xl mx-auto text-muted-foreground">
-                  Building intelligent systems that solve real-world problems through machine learning and software engineering.
+                  Data Scientist & ML Engineer with 3 years of experience in AI, cloud computing, and big data. Pursuing an M.S. in Data Science at Georgia Tech.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <Button size="lg" asChild className="group">
@@ -78,16 +172,14 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="space-y-4">
                 <p className="text-lg text-muted-foreground">
-                  I&apos;m a Machine Learning Engineer passionate about developing scalable AI solutions.
-                  Currently focused on building and deploying machine learning models in production environments.
+                  I&apos;m a Data Scientist & ML Engineer with 3 years of experience in AI, cloud computing, and big data. Currently pursuing an M.S. in Data Science at Georgia Tech, building on a strong foundation in statistics, exploratory data analysis, and machine learning.
                 </p>
                 <p className="text-lg text-muted-foreground">
-                  With expertise in Python, TensorFlow, and cloud technologies, I create robust and efficient
-                  machine learning systems that drive real business value.
+                  Experienced in ML pipelines, cloud-based AI solutions, and spatial data analysis. Skilled in Python, SQL, TensorFlow, PyTorch, and AWS.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 justify-center">
-                {["Python", "TensorFlow", "AWS", "Unity", "Kubernetes", "Next.js"].map((skill) => (
+                {["Python", "R", "SQL", "TensorFlow", "PyTorch", "AWS", "GCP", "Docker", "Kubernetes", "Power BI", "ArcGIS"].map((skill) => (
                   <span
                     key={skill}
                     className="px-4 py-2 bg-background rounded-full text-sm font-medium border border-border hover:border-primary transition-colors"
@@ -106,24 +198,17 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                title: "ML Pipeline Automation",
-                description: "Automated machine learning pipeline for real-time data processing",
-                tech: "Python, TensorFlow, AWS",
-                github: "#",
+                title: "Machine Learning Engineer",
+                description: "Real-time DL model for facial emotion recognition with 88% accuracy",
+                tech: "Python, TensorFlow, OpenCV",
+                github: "https://github.com/yourusername/emotion-detection",
                 demo: "#"
               },
               {
-                title: "Computer Vision System",
-                description: "Real-time object detection system for industrial applications",
-                tech: "Python, OpenCV, PyTorch",
-                github: "#",
-                demo: "#"
-              },
-              {
-                title: "Cloud ML Platform",
-                description: "Scalable machine learning platform for enterprise use",
-                tech: "Kubernetes, TensorFlow, GCP",
-                github: "#",
+                title: "Real-Time Theft Detection System",
+                description: "Edge-based CV system using YOLOv8n and pose tracking to detect theft via live RTSP camera feeds",
+                tech: "Python, YOLOv8, OpenCV",
+                github: "https://github.com/Amehroke/IP_Camera_App",
                 demo: "#"
               }
             ].map((project, index) => (
@@ -164,23 +249,46 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-center">Professional Experience</h2>
             {[
               {
-                title: "Senior ML Engineer",
-                company: "Tech Corp",
-                period: "2020 - Present",
+                title: "Machine Learning Engineer",
+                company: "Office of Performance and Data Analytics",
+                period: "May 2024 - Present",
                 achievements: [
-                  "Led development of ML infrastructure serving 1M+ users",
-                  "Implemented automated ML pipelines reducing deployment time by 60%",
-                  "Mentored junior engineers and conducted technical interviews"
+                  "Developed and optimized PyTorch-based deep learning models to enhance urban safety initiatives",
+                  "Designed and deployed ETL pipelines using Azure Databricks, improving efficiency and ensuring data integrity",
+                  "Created an interactive dashboard for real-time analytics on city data, enhancing accessibility and decision-making",
+                  "Deployed AI models using AWS SageMaker, S3, and Lambda for scalable, cloud-based inference",
+                  "Built a large-scale feature engineering framework, increasing predictive model accuracy by 15%"
                 ]
               },
               {
-                title: "ML Engineer",
-                company: "AI Solutions",
-                period: "2018 - 2020",
+                title: "Technical Lead",
+                company: "Western Digital",
+                period: "January 2023 - May 2024",
                 achievements: [
-                  "Developed computer vision models for industrial automation",
-                  "Optimized model performance reducing inference time by 40%",
-                  "Collaborated with cross-functional teams to deliver ML solutions"
+                  "Utilized Python and OpenCV to generate synthetic silicon wafer images with defects for model training",
+                  "Improved defect classification models by increasing dataset diversity, boosting detection accuracy by 25%",
+                  "Designed and implemented a data lake using S3 for efficient storage and retrieval of image data",
+                  "Optimized distributed model training and hyperparameter tuning with Apache Spark"
+                ]
+              },
+              {
+                title: "Web Application Developer",
+                company: "Sierra Nevada Research Institute",
+                period: "January 2022 - December 2022",
+                achievements: [
+                  "Developed a dynamic front-end application using React and JavaScript",
+                  "Implemented a Django-based backend for data storage, ensuring ACID compliance",
+                  "Designed and deployed RESTful API endpoints for efficient data serving"
+                ]
+              },
+              {
+                title: "Data Analyst",
+                company: "Blu-Lite Inc.",
+                period: "May 2018 - December 2021",
+                achievements: [
+                  "Developed regression models to forecast sales and inventory trends, driving a 5% increase in revenue",
+                  "Created dashboards and visual reports with Power BI and Excel, improving data accessibility by 25%",
+                  "Automated routine data reporting processes, reducing manual effort by 20%"
                 ]
               }
             ].map((exp, index) => (
@@ -203,16 +311,31 @@ export default function Home() {
         <AnimatedSection id="contact" className="relative py-16">
           <div className="max-w-2xl mx-auto space-y-8">
             <h2 className="text-3xl font-bold text-center">Get in Touch</h2>
-            <form className="space-y-6 p-6 bg-muted/50 rounded-lg border border-border">
+            <form onSubmit={handleSubmit} className="space-y-6 p-6 bg-muted/50 rounded-lg border border-border">
+              {formStatus.type && (
+                <div
+                  className={`p-4 rounded-md ${
+                    formStatus.type === "success"
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {formStatus.message}
+                </div>
+              )}
               <div className="space-y-2">
                 <label htmlFor="name" className="text-sm font-medium">
                   Name
                 </label>
                 <Input
                   id="name"
+                  name="name"
                   type="text"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Your name"
                   className="bg-background"
+                  required
                 />
               </div>
               <div className="space-y-2">
@@ -221,9 +344,13 @@ export default function Home() {
                 </label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="your.email@example.com"
                   className="bg-background"
+                  required
                 />
               </div>
               <div className="space-y-2">
@@ -232,33 +359,36 @@ export default function Home() {
                 </label>
                 <Textarea
                   id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   placeholder="Your message"
                   className="min-h-[100px] bg-background"
+                  required
                 />
               </div>
-              <Button type="submit" className="w-full group">
-                Send Message
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <Button 
+                type="submit" 
+                className="w-full group"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Sending..." : "Send Message"}
+                {!isSubmitting && <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />}
               </Button>
             </form>
             <div className="flex justify-center gap-4">
               <Button variant="outline" size="icon" asChild className="hover:bg-primary hover:text-primary-foreground transition-colors">
-                <Link href="#" target="_blank">
+                <Link href="https://github.com/Amehroke" target="_blank">
                   <Github className="h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="outline" size="icon" asChild className="hover:bg-primary hover:text-primary-foreground transition-colors">
-                <Link href="#" target="_blank">
+                <Link href="https://www.linkedin.com/in/arashdeep-singh-020398251/" target="_blank">
                   <Linkedin className="h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="outline" size="icon" asChild className="hover:bg-primary hover:text-primary-foreground transition-colors">
-                <Link href="#" target="_blank">
-                  <Youtube className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="icon" asChild className="hover:bg-primary hover:text-primary-foreground transition-colors">
-                <Link href="#" target="_blank">
+                <Link href="mailto:arashdeepmehrokework@gmail.com">
                   <Mail className="h-4 w-4" />
                 </Link>
               </Button>
