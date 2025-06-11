@@ -160,7 +160,6 @@ export default function Home() {
 
         {/* Experience Section */}
         <AnimatedSection id="experience" className="relative">
-          <div className="absolute inset-0 bg-muted/50" />
           <div className="relative space-y-12 max-w-3xl mx-auto py-16">
             <h2 className="text-3xl font-bold text-center">Professional Experience</h2>
             {[
