@@ -125,14 +125,14 @@ export default function Home() {
                 transition={{ duration: 0.5 }}
                 className="space-y-6"
               >
-                <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+                <h1 className="text-5xl md:text-7xl font-bold animated-gradient">
                   Arashdeep Mehroke
                 </h1>
                 <h2 className="text-2xl md:text-3xl text-muted-foreground">
-                  Data Scientist & ML Engineer
+                  Machine Learning Engineer | Data Scientist
                 </h2>
-                <p className="text-lg md:text-xl max-w-2xl mx-auto text-muted-foreground">
-                  Data Scientist & ML Engineer with 3 years of experience in AI, cloud computing, and big data. Pursuing an M.S. in Data Science at Georgia Tech.
+                <p className="text-lg md:text-xl max-w-2xl text-muted-foreground">
+                  Solving real-world problems with AI, cloud infrastructure, and big data. With 3+ years of experience and a Master&apos;s in progress at Georgia Tech, I build intelligent systems that scale.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <Button size="lg" asChild className="group">
