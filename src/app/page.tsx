@@ -5,7 +5,32 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { AnimatedSection } from "@/components/ui/animated-section";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Github, Linkedin, Mail, ArrowRight, Code2, Database, Cloud } from "lucide-react";
+import { 
+  Github, 
+  Linkedin, 
+  Mail, 
+  ArrowRight, 
+  Code2, 
+  Database, 
+  Cloud,
+  Code as PythonIcon,
+  Database as SQLIcon,
+  Code2 as CppIcon,
+  Brain,
+  Layers,
+  LineChart,
+  Cloud as CloudIcon,
+  Container,
+  GitBranch,
+  GitCommit,
+  GitPullRequest,
+  Beaker as FlaskIcon,
+  Server,
+  Globe,
+  Terminal,
+  BarChart,
+  Map
+} from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FluidBackground } from "@/components/ui/fluid-background";
@@ -172,20 +197,45 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="space-y-4">
                 <p className="text-lg text-muted-foreground">
-                  I&apos;m a Data Scientist & ML Engineer with 3 years of experience in AI, cloud computing, and big data. Currently pursuing an M.S. in Data Science at Georgia Tech, building on a strong foundation in statistics, exploratory data analysis, and machine learning.
+                  I&apos;m deeply passionate about data science and machine learning—fields that constantly challenge me to think critically, build creatively, and solve meaningful problems. I&apos;m currently pursuing a Master&apos;s in Data Science at Georgia Tech to deepen my understanding, while continuously working on hands-on projects ranging from real-time emotion recognition to computer vision and synthetic data generation.
                 </p>
                 <p className="text-lg text-muted-foreground">
-                  Experienced in ML pipelines, cloud-based AI solutions, and spatial data analysis. Skilled in Python, SQL, TensorFlow, PyTorch, and AWS.
+                  I thrive on learning by doing, whether it&apos;s building full-stack applications or optimizing machine learning pipelines. My technical toolkit includes Python, SQL, Java, TensorFlow, PyTorch, Scikit-learn, Docker, Kubernetes, AWS, GCP, Pandas, NumPy, Tableau, Power BI, and ArcGIS.
                 </p>
               </div>
-              <div className="flex flex-wrap gap-4 justify-center">
-                {["Python", "R", "SQL", "TensorFlow", "PyTorch", "AWS", "GCP", "Docker", "Kubernetes", "Power BI", "ArcGIS"].map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-4 py-2 bg-background rounded-full text-sm font-medium border border-border hover:border-primary transition-colors"
+              <div className="flex flex-wrap gap-6 justify-center">
+                {[
+                  { name: "Python", icon: PythonIcon },
+                  { name: "SQL", icon: SQLIcon },
+                  { name: "C++", icon: CppIcon },
+                  { name: "TensorFlow", icon: Brain },
+                  { name: "PyTorch", icon: Layers },
+                  { name: "Scikit-learn", icon: LineChart },
+                  { name: "XGBoost", icon: LineChart },
+                  { name: "AWS", icon: CloudIcon },
+                  { name: "GCP", icon: CloudIcon },
+                  { name: "Docker", icon: Container },
+                  { name: "Kubernetes", icon: GitBranch },
+                  { name: "Git", icon: GitCommit },
+                  { name: "CI/CD", icon: GitPullRequest },
+                  { name: "Flask", icon: FlaskIcon },
+                  { name: "Django", icon: Server },
+                  { name: "React", icon: Globe },
+                  { name: "Node.js", icon: Terminal },
+                  { name: "Power BI", icon: BarChart },
+                  { name: "ArcGIS", icon: Map }
+                ].map((skill) => (
+                  <div
+                    key={skill.name}
+                    className="flex flex-col items-center gap-2 group"
                   >
-                    {skill}
-                  </span>
+                    <div className="p-3 rounded-lg bg-background border border-border group-hover:border-primary transition-colors">
+                      <skill.icon className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <span className="text-sm text-muted-foreground group-hover:text-primary transition-colors">
+                      {skill.name}
+                    </span>
+                  </div>
                 ))}
               </div>
             </div>
