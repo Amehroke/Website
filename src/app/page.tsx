@@ -395,7 +395,7 @@ export default function Home() {
             </div>
             <div className="text-center">
               <Button variant="link" asChild className="group">
-                <Link href="/resume.pdf" target="_blank">
+                <Link href="/UpdatedResume.pdf" download>
                   Download Resume
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
