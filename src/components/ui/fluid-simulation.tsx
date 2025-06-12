@@ -52,9 +52,7 @@ export function FluidSimulation() {
     };
 
     // Pointer handling
-    let isHovering = false;
-    const pointers = [];
-    const splatStack = [];
+    const pointers: Pointer[] = [];
 
     class Pointer {
       id: number;
@@ -78,7 +76,7 @@ export function FluidSimulation() {
         this.deltaY = 0;
         this.down = false;
         this.moved = false;
-        this.color = [30, 0, 300];
+        this.color = { r: 30, g: 0, b: 300 };
       }
     }
 
@@ -107,14 +105,12 @@ export function FluidSimulation() {
       updatePointerUpData(pointers[0]);
     };
 
-    const handleMouseEnter = (e: MouseEvent) => {
-      isHovering = true;
+    const handleMouseEnter = () => {
       config.SPLAT_FORCE = 3000;
       config.SPLAT_RADIUS = 0.15;
     };
 
     const handleMouseLeave = () => {
-      isHovering = false;
       config.SPLAT_FORCE = 0;
       config.SPLAT_RADIUS = 0;
       updatePointerUpData(pointers[0]);
@@ -127,6 +123,7 @@ export function FluidSimulation() {
     }
 
     function updatePointerDownData(pointer: Pointer, id: number, posX: number, posY: number) {
+      if (!canvas) return;
       pointer.id = id;
       pointer.down = true;
       pointer.moved = false;
@@ -140,6 +137,7 @@ export function FluidSimulation() {
     }
 
     function updatePointerMoveData(pointer: Pointer, posX: number, posY: number) {
+      if (!canvas) return;
       pointer.prevTexcoordX = pointer.texcoordX;
       pointer.prevTexcoordY = pointer.texcoordY;
       pointer.texcoordX = posX / canvas.width;
@@ -154,12 +152,14 @@ export function FluidSimulation() {
     }
 
     function correctDeltaX(delta: number) {
+      if (!canvas) return delta;
       const aspectRatio = canvas.width / canvas.height;
       if (aspectRatio < 1) delta *= aspectRatio;
       return delta;
     }
 
     function correctDeltaY(delta: number) {
+      if (!canvas) return delta;
       const aspectRatio = canvas.width / canvas.height;
       if (aspectRatio > 1) delta /= aspectRatio;
       return delta;
