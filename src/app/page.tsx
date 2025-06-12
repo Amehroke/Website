@@ -257,17 +257,24 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                title: "Machine Learning Engineer",
-                description: "Real-time DL model for facial emotion recognition with 88% accuracy",
-                tech: "Python, TensorFlow, OpenCV",
-                github: "https://github.com/yourusername/emotion-detection",
+                title: "Emotion Recognition Using RAVDESS Audio Data",
+                description: "System for recognizing human emotions from audio using the RAVDESS dataset. Includes feature extraction (YAMNet, Librosa), dataset balancing (SMOTE), dimensionality reduction (t-SNE, UMAP), and model training for robust emotion classification.",
+                tech: "Python, TensorFlow, Librosa, SMOTE, UMAP, t-SNE",
+                github: "https://github.com/Amehroke/Emotion-Recognition",
                 demo: "#"
               },
               {
                 title: "Real-Time Theft Detection System",
-                description: "Edge-based CV system using YOLOv8n and pose tracking to detect theft via live RTSP camera feeds",
-                tech: "Python, YOLOv8, OpenCV",
+                description: "System for detecting retail theft using live video streams from IP cameras routed through Raspberry Pi 5 and AWS. Covers object detection (YOLOv8), cloud video analysis (Rekognition), edge inference (TensorFlow Lite), and real-time notifications (SNS). Designed for mobile-accessible, cost-effective surveillance.",
+                tech: "Raspberry Pi 5, Python, TensorFlow Lite, OpenCV, AWS Kinesis, Rekognition, IoT Core, SNS, API Gateway",
                 github: "https://github.com/Amehroke/IP_Camera_App",
+                demo: "#"
+              },
+              {
+                title: "Synthetic Retail Store Dataset with Unity",
+                description: "Simulated retail store environment using Unity to generate synthetic training data for retail computer vision models. Features smart viewport-based labeling and IoU filtering to reduce noisy annotations, enhancing YOLOv8 fine-tuning and behavior detection (e.g., theft via PoseLift).",
+                tech: "Unity, Python, YOLOv8, OpenCV, NumPy, PoseLift, IoU Filtering",
+                github: "https://github.com/Amehroke/Small-Item-Classification-Dataset",
                 demo: "#"
               }
             ].map((project, index) => (
