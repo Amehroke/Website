@@ -11,7 +11,7 @@ export function FluidBackground() {
     canvas.style.left = "0";
     canvas.style.width = "100%";
     canvas.style.height = "100%";
-    canvas.style.zIndex = "0";
+    canvas.style.zIndex = window.innerWidth < 768 ? "-1" : "0"; // Adjust z-index for mobile
     canvas.style.opacity = "0.8";
     canvas.style.transition = "opacity 0.3s ease";
     canvas.style.pointerEvents = "auto";
@@ -26,6 +26,12 @@ export function FluidBackground() {
       canvas.style.opacity = "0.8";
     });
 
+    // Add resize listener to handle z-index changes
+    const handleResize = () => {
+      canvas.style.zIndex = window.innerWidth < 768 ? "-1" : "0";
+    };
+    window.addEventListener("resize", handleResize);
+
     // Inject the original script
     const script = document.createElement("script");
     script.src = "/fluid-simulation.js";
@@ -35,6 +41,7 @@ export function FluidBackground() {
     return () => {
       document.body.removeChild(canvas);
       document.body.removeChild(script);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 

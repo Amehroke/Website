@@ -253,6 +253,12 @@ canvas {
   mix-blend-mode: screen;
 }
 
+@media (max-width: 768px) {
+  canvas {
+    z-index: -1;
+  }
+}
+
 canvas:hover {
   opacity: 1;
 }
@@ -269,6 +275,12 @@ canvas:hover {
   position: relative;
   z-index: 1;
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .card, section {
+    z-index: 2;
+  }
 }
 
 /* Ensure section content is clickable */
