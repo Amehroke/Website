@@ -268,14 +268,14 @@ export default function Home() {
                 description: "System for detecting retail theft using live video streams from IP cameras routed through Raspberry Pi 5 and AWS. Covers object detection (YOLOv8), cloud video analysis (Rekognition), edge inference (TensorFlow Lite), and real-time notifications (SNS). Designed for mobile-accessible, cost-effective surveillance.",
                 tech: "Raspberry Pi 5, Python, TensorFlow Lite, OpenCV, AWS Kinesis, Rekognition, IoT Core, SNS, API Gateway",
                 github: "https://github.com/Amehroke/IP_Camera_App",
-                demo: "#"
+                demo: "https://www.linkedin.com/posts/arashdeep-singh-020398251_ai-retailtech-edgecomputing-activity-7312274744299425793-y8JZ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAD4rwxgB0_cG6ThKl8CVhgoQCvyoA2T5hfI"
               },
               {
                 title: "Synthetic Retail Store Dataset with Unity",
                 description: "Simulated retail store environment using Unity to generate synthetic training data for retail computer vision models. Features smart viewport-based labeling and IoU filtering to reduce noisy annotations, enhancing YOLOv8 fine-tuning and behavior detection (e.g., theft via PoseLift).",
                 tech: "Unity, Python, YOLOv8, OpenCV, NumPy, PoseLift, IoU Filtering",
                 github: "https://github.com/Amehroke/Small-Item-Classification-Dataset",
-                demo: "#"
+                demo: "https://www.linkedin.com/posts/arashdeep-singh-020398251_computervision-yolo-syntheticdata-activity-7325185311368454145-MlJM?utm_source=share&utm_medium=member_desktop&rcm=ACoAAD4rwxgB0_cG6ThKl8CVhgoQCvyoA2T5hfI"
               }
             ].map((project, index) => (
               <Card key={index} className="group hover:border-primary transition-colors">
