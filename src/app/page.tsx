@@ -143,34 +143,43 @@ export default function Home() {
         {/* Hero Section */}
         <div className="section-padding relative">
           <div className="container-padding mx-auto max-w-7xl">
-            <div className="relative space-y-8 py-16">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="space-y-6"
-              >
-                <h1 className="text-5xl md:text-7xl font-bold animated-gradient">
-                  Arashdeep Mehroke
-                </h1>
-                <h2 className="text-2xl md:text-3xl text-muted-foreground">
-                  Machine Learning Engineer | Data Scientist
-                </h2>
-                <p className="text-lg md:text-xl max-w-2xl text-muted-foreground">
-                  Solving real-world problems with AI, cloud infrastructure, and big data. With 3+ years of experience and a Master&apos;s in progress at Georgia Tech, I build intelligent systems that scale.
-                </p>
-                <div className="flex flex-wrap justify-center gap-4">
-                  <Button size="lg" asChild className="group">
-                    <Link href="#projects">
-                      View My Work
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  </Button>
-                  <Button size="lg" variant="outline" asChild>
-                    <Link href="#contact">Get in Touch</Link>
-                  </Button>
+            <div className="relative py-16">
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-10">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="space-y-6 flex-1"
+                >
+                  <h1 className="text-5xl md:text-7xl font-bold animated-gradient">
+                    Arashdeep Mehroke
+                  </h1>
+                  <h2 className="text-2xl md:text-3xl text-muted-foreground">
+                    Machine Learning Engineer | Data Scientist
+                  </h2>
+                  <p className="text-lg md:text-xl max-w-2xl text-muted-foreground">
+                    Solving real-world problems with AI, cloud infrastructure, and big data. With 3+ years of experience and a Master&apos;s in progress at Georgia Tech, I build intelligent systems that scale.
+                  </p>
+                  <div className="flex flex-wrap justify-center md:justify-start gap-4">
+                    <Button size="lg" asChild className="group">
+                      <Link href="#projects">
+                        View My Work
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
+                    <Button size="lg" variant="outline" asChild>
+                      <Link href="#contact">Get in Touch</Link>
+                    </Button>
+                  </div>
+                </motion.div>
+                <div className="flex-1 flex justify-center md:justify-end">
+                  <img 
+                    src="/Minimalistic Data Science Portrait.png" 
+                    alt="Minimalistic Data Science Portrait" 
+                    className="w-56 md:w-80 max-w-full h-auto rounded-lg object-contain"
+                  />
                 </div>
-              </motion.div>
+              </div>
               <div className="flex justify-center gap-8 pt-8">
                 <div className="flex flex-col items-center gap-2">
                   <Code2 className="h-8 w-8 text-primary" />
