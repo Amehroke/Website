@@ -36,6 +36,7 @@ import { motion } from "framer-motion";
 import { FluidBackground } from "@/components/ui/fluid-background";
 import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
+import { Modal } from "@/components/ui/modal";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -48,6 +49,7 @@ export default function Home() {
     message: string;
   }>({ type: null, message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   useEffect(() => {
     // Initialize EmailJS
@@ -268,7 +270,7 @@ export default function Home() {
                 description: "System for detecting retail theft using live video streams from IP cameras routed through Raspberry Pi 5 and AWS. Covers object detection (YOLOv8), cloud video analysis (Rekognition), edge inference (TensorFlow Lite), and real-time notifications (SNS). Designed for mobile-accessible, cost-effective surveillance.",
                 tech: "Raspberry Pi 5, Python, TensorFlow Lite, OpenCV, AWS Kinesis, Rekognition, IoT Core, SNS, API Gateway",
                 github: "https://github.com/Amehroke/IP_Camera_App",
-                demo: "https://www.linkedin.com/posts/arashdeep-singh-020398251_ai-retailtech-edgecomputing-activity-7312274744299425793-y8JZ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAD4rwxgB0_cG6ThKl8CVhgoQCvyoA2T5hfI"
+                demo: "#"
               },
               {
                 title: "Synthetic Retail Store Dataset with Unity",
@@ -297,11 +299,20 @@ export default function Home() {
                       GitHub
                     </Link>
                   </Button>
-                  <Button variant="outline" size="sm" asChild className="group">
-                    <Link href={project.demo} target="_blank">
-                      <ArrowRight className="mr-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      Demo
-                    </Link>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="group"
+                    onClick={() => {
+                      if (project.title === "Real-Time Theft Detection System") {
+                        setIsVideoModalOpen(true);
+                      } else {
+                        window.open(project.demo, '_blank');
+                      }
+                    }}
+                  >
+                    <ArrowRight className="mr-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    Demo
                   </Button>
                 </CardFooter>
               </Card>
@@ -470,6 +481,26 @@ export default function Home() {
           </div>
         </AnimatedSection>
       </div>
+      <Modal isOpen={isVideoModalOpen} onClose={() => setIsVideoModalOpen(false)}>
+        <div className="relative w-full aspect-video -mt-2">
+          <video 
+            className="w-full h-full rounded-lg" 
+            controls
+            autoPlay
+            playsInline
+            preload="auto"
+            src="/IP_Camera_Test.mp4"
+            onError={(e) => {
+              console.error('Error loading video:', e);
+              setIsVideoModalOpen(false);
+            }}
+            style={{ pointerEvents: 'auto' }}
+          >
+            <source src="/IP_Camera_Test.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </Modal>
     </main>
   );
 }
