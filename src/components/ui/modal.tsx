@@ -22,13 +22,13 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
         className="relative z-50 w-full max-w-4xl mx-4"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative bg-background rounded-lg shadow-lg p-0 border-4 border-transparent bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 animate-gradient-x">
+        <div className="relative bg-background rounded-lg shadow-lg p-0 border-4 border-transparent bg-gradient-to-r from-red-700 via-yellow-700 via-green-700 via-blue-700 to-purple-700 animate-gradient-x shadow-[0_0_15px_rgba(0,0,0,0.3)]">
           <div className="relative z-10 bg-background rounded-lg overflow-hidden">
             
             {/* X Button - Top Right */}
             <button
               onClick={onClose}
-              className="absolute p-2 rounded-full bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 animate-gradient-x hover:scale-110 transition-transform z-[100] text-white shadow-lg"
+              className="absolute p-2 rounded-full bg-gradient-to-r from-red-700 via-yellow-700 via-green-700 via-blue-700 to-purple-700 animate-gradient-x hover:scale-110 transition-transform z-[100] text-white shadow-[0_4px_12px_rgba(0,0,0,0.4)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.5)]"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
