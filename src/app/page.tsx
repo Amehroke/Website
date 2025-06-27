@@ -486,23 +486,51 @@ export default function Home() {
         </AnimatedSection>
       </div>
       <Modal isOpen={isVideoModalOpen} onClose={() => setIsVideoModalOpen(false)}>
-        <div className="relative w-full aspect-video -mt-2">
-          <video 
-            className="w-full h-full rounded-lg" 
-            controls
-            autoPlay
-            playsInline
-            preload="auto"
-            src="/IP_Camera_Test.mp4"
-            onError={(e) => {
-              console.error('Error loading video:', e);
-              setIsVideoModalOpen(false);
-            }}
-            style={{ pointerEvents: 'auto' }}
-          >
-            <source src="/IP_Camera_Test.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="relative w-full max-w-4xl aspect-video bg-background rounded-lg border border-border overflow-hidden flex items-center justify-center shadow-2xl">
+            {/* Video with X button overlay */}
+            <div className="relative w-full h-full flex items-center justify-center">
+              <video 
+                className="w-full h-full rounded-lg"
+                controls
+                autoPlay
+                playsInline
+                preload="auto"
+                src="/IP_Camera_Test.mp4"
+                onError={(e) => {
+                  console.error('Error loading video:', e);
+                  setIsVideoModalOpen(false);
+                }}
+                style={{ pointerEvents: 'auto' }}
+              >
+                <source src="/IP_Camera_Test.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              {/* X Button overlayed on video */}
+              <button
+                onClick={() => setIsVideoModalOpen(false)}
+                className="!absolute top-4 right-4 z-50 bg-background/90 text-foreground rounded-full p-2 hover:bg-destructive hover:text-destructive-foreground transition-all shadow-lg"
+                aria-label="Close"
+                type="button"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </Modal>
       {isModelViewerOpen && (
