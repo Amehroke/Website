@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { AnimatedSection } from "@/components/ui/animated-section";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { ModelViewer } from "@/components/ui/model-viewer";
 import { 
   Github, 
   Linkedin, 
@@ -50,6 +51,7 @@ export default function Home() {
   }>({ type: null, message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isModelViewerOpen, setIsModelViewerOpen] = useState(false);
 
   useEffect(() => {
     // Initialize EmailJS
@@ -306,6 +308,8 @@ export default function Home() {
                     onClick={() => {
                       if (project.title === "Real-Time Theft Detection System") {
                         setIsVideoModalOpen(true);
+                      } else if (project.title === "Synthetic Retail Store Dataset with Unity") {
+                        setIsModelViewerOpen(true);
                       } else {
                         window.open(project.demo, '_blank');
                       }
@@ -501,6 +505,12 @@ export default function Home() {
           </video>
         </div>
       </Modal>
+      {isModelViewerOpen && (
+        <ModelViewer 
+          modelPath="/models/konbini.glb" 
+          onClose={() => setIsModelViewerOpen(false)} 
+        />
+      )}
     </main>
   );
 }
