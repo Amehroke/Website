@@ -5,6 +5,8 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Environment, Center, Bounds, Html, useProgress } from '@react-three/drei';
 import { Button } from './button';
 import { X, RotateCcw, ZoomIn, ZoomOut } from 'lucide-react';
+import { Camera } from 'three';
+import Image from 'next/image';
 
 interface ModelViewerProps {
   modelPath: string;
@@ -62,8 +64,8 @@ function Loader() {
 
 export function ModelViewer({ modelPath, imagePaths = [], onClose }: ModelViewerProps) {
   const startPosition = [-3.3519290770293177, 0.142208724997511, -4.691621188336605];
-  const cameraRef = useRef<any>(null);
-  const controlsRef = useRef<any>(null);
+  const cameraRef = useRef<Camera | null>(null);
+  const controlsRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   
   // Create slides array: model first, then images
@@ -71,8 +73,11 @@ export function ModelViewer({ modelPath, imagePaths = [], onClose }: ModelViewer
 
   const resetCamera = () => {
     if (cameraRef.current && controlsRef.current) {
-      cameraRef.current.position.set(...startPosition);
-      controlsRef.current.reset();
+      cameraRef.current.position.set(
+        ...(startPosition as [number, number, number])
+      );
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (controlsRef.current as any).reset();
     }
   };
 
@@ -248,11 +253,13 @@ export function ModelViewer({ modelPath, imagePaths = [], onClose }: ModelViewer
             />
           </Canvas>
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">
-            <img 
-              src={slides[currentSlide]} 
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 relative">
+            <Image
+              src={slides[currentSlide]}
               alt={`Slide ${currentSlide + 1}`}
-              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              fill
+              style={{ objectFit: 'contain' }}
+              className="rounded-lg shadow-2xl"
             />
           </div>
         )}
