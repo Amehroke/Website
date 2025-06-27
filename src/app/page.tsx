@@ -508,6 +508,10 @@ export default function Home() {
       {isModelViewerOpen && (
         <ModelViewer 
           modelPath="/models/konbini.glb" 
+          imagePaths={[
+            "/BoundingBoxes.png",
+            "/UnitySetup.png"
+          ]}
           onClose={() => setIsModelViewerOpen(false)} 
         />
       )}
