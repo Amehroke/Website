@@ -4,7 +4,7 @@ import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Environment, Center, Bounds, Html, useProgress } from '@react-three/drei';
 import { Button } from './button';
-import { X, RotateCcw, ZoomIn, ZoomOut } from 'lucide-react';
+import { X, RotateCcw, ZoomIn, ZoomOut, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Camera } from 'three';
 import Image from 'next/image';
 
@@ -12,6 +12,24 @@ interface ModelViewerProps {
   modelPath: string;
   imagePaths?: string[];
   onClose: () => void;
+}
+
+// Mobile detection hook
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
+  return isMobile;
 }
 
 function Model({ modelPath }: { modelPath: string }) {
@@ -63,13 +81,14 @@ function Loader() {
 }
 
 export function ModelViewer({ modelPath, imagePaths = [], onClose }: ModelViewerProps) {
+  const isMobile = useIsMobile();
   const startPosition = [-3.3519290770293177, 0.142208724997511, -4.691621188336605];
   const cameraRef = useRef<Camera | null>(null);
   const controlsRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   
-  // Create slides array: model first, then images
-  const slides = [modelPath, ...imagePaths];
+  // Create slides array: on mobile, only show images; on desktop, model first, then images
+  const slides = isMobile ? imagePaths : [modelPath, ...imagePaths];
 
   const resetCamera = () => {
     if (cameraRef.current && controlsRef.current) {
@@ -119,7 +138,26 @@ export function ModelViewer({ modelPath, imagePaths = [], onClose }: ModelViewer
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  const isModelSlide = currentSlide === 0;
+  const isModelSlide = !isMobile && currentSlide === 0;
+
+  // If mobile and no images, show a message
+  if (isMobile && imagePaths.length === 0) {
+    return (
+      <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="relative w-full max-w-md bg-background rounded-lg border border-border overflow-hidden p-6">
+          <div className="text-center space-y-4">
+            <h3 className="text-lg font-semibold">Mobile View</h3>
+            <p className="text-muted-foreground">
+              3D models are not available on mobile devices. Please view on desktop for the full experience.
+            </p>
+            <Button onClick={onClose} className="w-full">
+              Close
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
@@ -135,7 +173,8 @@ export function ModelViewer({ modelPath, imagePaths = [], onClose }: ModelViewer
                   onClick={prevSlide}
                   className="bg-background/80 backdrop-blur-sm"
                 >
-                  ← Prev
+                  <ChevronLeft className="h-4 w-4 mr-1" />
+                  {isMobile ? 'Prev' : '← Prev'}
                 </Button>
                 <Button
                   variant="outline"
@@ -143,11 +182,12 @@ export function ModelViewer({ modelPath, imagePaths = [], onClose }: ModelViewer
                   onClick={nextSlide}
                   className="bg-background/80 backdrop-blur-sm"
                 >
-                  Next →
+                  {isMobile ? 'Next' : 'Next →'}
+                  <ChevronRight className="h-4 w-4 ml-1" />
                 </Button>
               </>
             )}
-            {isModelSlide && (
+            {!isMobile && isModelSlide && (
               <>
                 <Button
                   variant="outline"
@@ -196,7 +236,7 @@ export function ModelViewer({ modelPath, imagePaths = [], onClose }: ModelViewer
           </div>
         </div>
 
-        {/* 3D Canvas */}
+        {/* Content */}
         {isModelSlide ? (
           <Canvas
             style={{
@@ -264,14 +304,16 @@ export function ModelViewer({ modelPath, imagePaths = [], onClose }: ModelViewer
           </div>
         )}
 
-        {/* Instructions */}
-        <div className="absolute bottom-4 left-4 right-4 z-20">
-          <div className="bg-background/80 backdrop-blur-sm rounded-lg p-3 text-sm text-muted-foreground">
-            <p className="text-center">
-              Use mouse to rotate • Scroll to zoom • Right-click to pan
-            </p>
+        {/* Instructions - only show on desktop for 3D model */}
+        {!isMobile && isModelSlide && (
+          <div className="absolute bottom-4 left-4 right-4 z-20">
+            <div className="bg-background/80 backdrop-blur-sm rounded-lg p-3 text-sm text-muted-foreground">
+              <p className="text-center">
+                Use mouse to rotate • Scroll to zoom • Right-click to pan
+              </p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
