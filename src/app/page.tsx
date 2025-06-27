@@ -535,7 +535,7 @@ export default function Home() {
       </Modal>
       {isModelViewerOpen && (
         <ModelViewer 
-          modelPath="/models/konbini.glb" 
+          modelPath="/models/Konbini.glb" 
           imagePaths={[
             "/BoundingBoxes.png",
             "/UnitySetup.png"
